@@ -47,7 +47,7 @@
           <div class="fields">
             <div class="field"><label for="f-type">Content type</label>
               <select class="input" id="f-type"></select></div>
-            <div class="field"><label for="f-kw">Focus keyword</label><input class="input" id="f-kw" placeholder="e.g. scalping vs swing trading"></div>
+            <div class="field"><label for="f-kw">Focus keyword</label><input class="input" id="f-kw" placeholder="e.g. your main search phrase"></div>
             <div class="field"><label for="f-sec">Secondary keywords</label><input class="input" id="f-sec" placeholder="comma separated"></div>
           </div>
           <div class="fields" style="margin-top:12px">
@@ -63,7 +63,7 @@
             <summary>Author and URL</summary>
             <div class="fields">
               <div class="field"><label for="f-auth">Author byline</label><input class="input" id="f-auth" placeholder="Real author name"></div>
-              <div class="field"><label for="f-slug">URL slug</label><input class="input" id="f-slug" placeholder="/blog/scalping-vs-swing-trading"></div>
+              <div class="field"><label for="f-slug">URL slug</label><input class="input" id="f-slug" placeholder="/blog/your-post-slug"></div>
             </div>
           </details>
 
@@ -79,7 +79,7 @@
           </div>
           <div data-srcpane="url" hidden>
             <div class="actions" style="margin-top:0">
-              <input class="input" id="f-url" placeholder="https://sureshotfx.com/blog/..." style="flex:1 1 260px">
+              <input class="input" id="f-url" placeholder="https://example.com/blog/your-post" style="flex:1 1 260px">
               <button class="btn" id="btnImport">Import</button>
             </div>
             <p class="note" style="margin-top:10px">Imports work when the app runs on Netlify or Render (uses the built-in /api/page function) or through a public proxy on GitHub Pages. Your own sites are pre-allowed; add more with the EXTRA_HOSTS setting on the server.</p>
