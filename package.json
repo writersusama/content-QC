@@ -1,0 +1,9 @@
+{
+  "name": "content-qc",
+  "version": "1.0.0",
+  "description": "Content QC: content quality checker backed by Google's policies, ranking systems and patents",
+  "type": "module",
+  "private": true,
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}

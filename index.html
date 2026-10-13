@@ -1,0 +1,153 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Content QC</title>
+<meta name="description" content="Content QC: a free content quality checker backed by Google's spam policies, helpful content guidance, ranking systems and patents.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 32 32'%3E%3Cdefs%3E%3ClinearGradient id='g' x1='0' x2='1'%3E%3Cstop offset='0' stop-color='%231A43C4'/%3E%3Cstop offset='.5' stop-color='%232E8FE6'/%3E%3Cstop offset='1' stop-color='%231A43C4'/%3E%3C/linearGradient%3E%3C/defs%3E%3Crect width='32' height='32' rx='8' fill='url(%23g)'/%3E%3Ccircle cx='14' cy='14' r='7' fill='none' stroke='white' stroke-width='2.4'/%3E%3Cpath d='M11 14l2.2 2.2L17.5 12M19.5 19.5l5 5' fill='none' stroke='white' stroke-width='2.4' stroke-linecap='round' stroke-linejoin='round'/%3E%3C/svg%3E">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bricolage+Grotesque:opsz,wght@12..96,500..800&family=Fraunces:ital,opsz,wght@1,9..144,500..700&family=Unbounded:wght@600;700;800&family=Instrument+Sans:wght@400;500;600;700&family=IBM+Plex+Mono:wght@500;600&display=swap">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<header class="band">
+  <div class="band-in">
+    <a class="brand" href="#check" data-go="check" aria-label="Content QC home">
+      <svg width="38" height="38" viewBox="0 0 38 38" aria-hidden="true"><rect x="1" y="1" width="36" height="36" rx="10" fill="rgba(255,255,255,.14)" stroke="rgba(255,255,255,.35)"/><circle cx="17" cy="17" r="8" fill="none" stroke="#fff" stroke-width="2.4"/><path d="M13.6 17.2l2.3 2.3 4.5-4.6M23 23l6 6" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      <span class="brand-text"><span class="brand-name"><span class="wm-a">Content</span><span class="wm-b">QC</span></span><span class="brand-tag">content quality checker</span></span>
+    </a>
+    <nav class="nav" aria-label="Sections">
+      <button data-go="check" aria-current="page">Check</button>
+      <button data-go="report">Report</button>
+      <button data-go="library">Policy Library</button>
+      <button data-go="sources">Live Sources</button>
+      <button data-go="settings">Settings</button>
+    </nav>
+    <button class="theme-btn" id="themeBtn" title="Switch light or dark theme" aria-label="Switch theme">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 12.8A9 9 0 1111.2 3a7 7 0 009.8 9.8z"/></svg>
+    </button>
+  </div>
+</header>
+
+<div class="wrap" id="wrap">
+  <main class="main" id="main">
+
+    <!-- ================= CHECK ================= -->
+    <section data-view="check" id="view-check">
+      <div class="panel">
+        <div class="panel-h">
+          <div><h2>New content check</h2><div class="sub">Any of 61 copy types, any length, for writers, SEOs, advertisers, YouTube teams, email marketers and developers. Paste from Google Docs or Word, write here, or import a URL or file. Every field is optional: run with nothing and you get a content brief.</div></div>
+          <span class="sample-tag" id="sampleTag" hidden>Sample article loaded</span>
+        </div>
+        <div class="panel-b">
+          <div class="roles" id="roles" aria-label="Who is checking"></div>
+          <div class="role-types" id="roleTypes"></div>
+          <div class="fields">
+            <div class="field"><label for="f-type">Content type</label>
+              <select class="input" id="f-type"></select></div>
+            <div class="field"><label for="f-kw">Focus keyword</label><input class="input" id="f-kw" placeholder="e.g. scalping vs swing trading"></div>
+            <div class="field"><label for="f-sec">Secondary keywords</label><input class="input" id="f-sec" placeholder="comma separated"></div>
+          </div>
+          <div class="fields" style="margin-top:12px">
+            <div class="field"><label for="f-mt">Title tag <span class="count" id="c-mt">0</span></label><input class="input" id="f-mt" placeholder="SEO title (about 50-60 characters)"></div>
+            <div class="field"><label for="f-md">Meta description <span class="count" id="c-md">0</span></label><input class="input" id="f-md" placeholder="About 140-155 characters"></div>
+          </div>
+          <div class="fields" style="margin-top:12px">
+            <div class="field"><label for="f-dom">Target website <span class="muted" style="font-weight:500">checks if the content fits this domain</span></label>
+              <div style="display:flex;gap:8px"><input class="input" id="f-dom" placeholder="example.com (optional)" style="flex:1"><button class="btn sm" id="btnSite" type="button" title="Read the site now">Read site</button></div>
+              <div class="muted" id="siteState" style="font-size:12.5px"></div></div>
+          </div>
+          <details class="more">
+            <summary>Author and URL</summary>
+            <div class="fields">
+              <div class="field"><label for="f-auth">Author byline</label><input class="input" id="f-auth" placeholder="Real author name"></div>
+              <div class="field"><label for="f-slug">URL slug</label><input class="input" id="f-slug" placeholder="/blog/scalping-vs-swing-trading"></div>
+            </div>
+          </details>
+
+          <div class="tabs" role="tablist" style="margin-top:16px">
+            <button role="tab" aria-selected="true" data-src="paste">Paste or write</button>
+            <button role="tab" aria-selected="false" data-src="url">Import from URL</button>
+            <button role="tab" aria-selected="false" data-src="file">Upload file</button>
+            <button role="tab" aria-selected="false" data-src="source">Page HTML source</button>
+          </div>
+          <div data-srcpane="source" hidden>
+            <textarea class="input mono" id="f-source" rows="8" spellcheck="false" placeholder="Optional. Paste the full HTML of a page (View source, Ctrl+U) to add technical SEO checks: robots, canonical, schema, viewport, images, links, ads. Importing a URL fills this automatically."></textarea>
+            <p class="note" style="margin-top:10px">When this box has HTML, a "Technical SEO" score is added. If the editor below is empty, the page's main text is checked too.</p>
+          </div>
+          <div data-srcpane="url" hidden>
+            <div class="actions" style="margin-top:0">
+              <input class="input" id="f-url" placeholder="https://sureshotfx.com/blog/..." style="flex:1 1 260px">
+              <button class="btn" id="btnImport">Import</button>
+            </div>
+            <p class="note" style="margin-top:10px">Imports work when the app runs on Netlify or Render (uses the built-in /api/page function) or through a public proxy on GitHub Pages. Your own sites are pre-allowed; add more with the EXTRA_HOSTS setting on the server.</p>
+          </div>
+          <div data-srcpane="file" hidden>
+            <div class="actions" style="margin-top:0">
+              <input type="file" id="f-file" accept=".txt,.md,.markdown,.html,.htm,.docx">
+            </div>
+            <p class="note" style="margin-top:10px">Supports .docx (Word / Google Docs download), .md, .html and .txt. Files stay in your browser.</p>
+          </div>
+          <div class="editor" id="editor" contenteditable="true" spellcheck="true" data-placeholder="Paste or write your content here." aria-label="Article editor" style="margin-top:12px"></div>
+          <div class="actions">
+            <button class="btn primary" id="btnRun"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round"><circle cx="11" cy="11" r="7"/><path d="M8 11l2 2 4-4M20 20l-4-4"/></svg>Run quality check</button>
+            <span class="kbd">Ctrl + Enter</span>
+            <span class="spacer"></span>
+            <span class="muted num" id="wc">0 words</span>
+            <button class="btn sm" id="btnSample">Load sample</button>
+            <button class="btn sm" id="btnClear">Clear</button>
+          </div>
+        </div>
+      </div>
+      <div class="panel" style="margin-top:18px" id="historyPanel" hidden>
+        <div class="panel-h"><h2>Recent checks</h2><button class="btn sm" id="btnClearHist">Clear history</button></div>
+        <div class="panel-b" id="history"></div>
+      </div>
+    </section>
+
+    <!-- ================= REPORT ================= -->
+    <section data-view="report" id="view-report" hidden></section>
+
+    <!-- ================= LIBRARY ================= -->
+    <section data-view="library" id="view-library" hidden></section>
+
+    <!-- ================= SOURCES ================= -->
+    <section data-view="sources" id="view-sources" hidden></section>
+
+    <!-- ================= SETTINGS ================= -->
+    <section data-view="settings" id="view-settings" hidden></section>
+  </main>
+
+  <aside class="rail" id="rail" aria-label="Google Pulse">
+    <div class="panel">
+      <div class="pulse-h">
+        <h2><span class="live-dot off" id="liveDot"></span>Google Pulse</h2>
+        <button class="btn sm" id="btnRefresh" title="Refresh feeds">Refresh</button>
+      </div>
+      <div id="rollingBox"></div>
+      <div class="mini-tabs" role="tablist">
+        <button role="tab" aria-selected="true" data-feed="hot">Most discussed</button>
+        <button role="tab" aria-selected="false" data-feed="updates">Ranking updates</button>
+        <button role="tab" aria-selected="false" data-feed="official">Google blog</button>
+        <button role="tab" aria-selected="false" data-feed="docs">Doc changes</button>
+        <button role="tab" aria-selected="false" data-feed="patents">Patents</button>
+        <button role="tab" aria-selected="false" data-feed="industry">Industry</button>
+      </div>
+      <div id="feedBody"><p class="muted" style="padding:0 16px 14px">Loading Google news...</p></div>
+      <div class="pulse-foot"><span id="feedMeta">Connecting...</span><a href="https://status.search.google.com/products/rGHU1u87FJnkP6W2GwMi/history" target="_blank" rel="noopener">Status dashboard &#8599;</a></div>
+    </div>
+  </aside>
+</div>
+<footer class="foot">Content QC runs entirely in your browser; nothing you paste leaves it unless you connect an AI model in Settings. Google policy library last reviewed <span id="kbDate"></span>. Findings are guidance, not a guarantee of rankings.</footer>
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/kb.js"></script>
+<script src="assets/analyzers.js"></script>
+<script src="assets/ai.js"></script>
+<script src="assets/feeds.js"></script>
+<script src="assets/site.js"></script>
+<script src="assets/app.js"></script>
+</body>
+</html>
