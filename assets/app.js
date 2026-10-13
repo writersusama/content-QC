@@ -347,7 +347,7 @@ Scalping rewards speed and screen time, while swing trading rewards patience. Pi
   function renderReport() {
     const v = $('#view-report');
     if (!report) {
-      v.innerHTML = `<div class="panel"><div class="empty"><h3>No report yet</h3><p>Run a check from the Check tab. The sample article is ready to try.</p><button class="btn primary" id="goCheck">Go to Check</button></div></div>`;
+      v.innerHTML = `<div class="panel"><div class="empty"><h3>No report yet</h3><p>Paste your content on the Check tab and run a check. Want to see how it works first? Click "Load sample" there.</p><button class="btn primary" id="goCheck">Go to Check</button></div></div>`;
       $('#goCheck').onclick = () => go('check'); return;
     }
     const r = report, m = r.metrics;
@@ -815,15 +815,16 @@ Reply ONLY with JSON: {"items":[{"title":"...","date":"YYYY-MM-DD","area":"Searc
 
   /* ------------------------------ boot ------------------------------ */
   $('#kbDate').textContent = new Date(KB.reviewed).toLocaleDateString(undefined, { day: 'numeric', month: 'short', year: 'numeric' });
+  // Start clean. Only restore the user's own unfinished draft, never the sample article
+  // (older versions could have saved the sample as a draft, so it is detected and dropped).
   const draft = store.get('cqc.draft', null);
-  if (draft && draft.html && window.CQ.wordsOf(draft.html.replace(/<[^>]+>/g, ' ')).length > 10) { ed.innerHTML = draft.html; writeFields(draft.fields || {}); }
-  else { loadSample(); }
+  const plain = h => { const d = document.createElement('div'); d.innerHTML = String(h || '').replace(/<\/(p|h\d|li)>/g, ' $&'); return d.textContent.replace(/\s+/g, ' '); };
+  const isSample = h => { const t = plain(h); const ss = window.CQ.splitSentences(plain(window.CQ.mdToHTML(SAMPLE))).filter(x => x.length > 40); return ss.length > 0 && ss.filter(x => t.includes(x.trim())).length / ss.length > 0.5; };
+  if (draft && draft.html && window.CQ.wordsOf(draft.html.replace(/<[^>]+>/g, ' ')).length > 10 && !isSample(draft.html)) { ed.innerHTML = draft.html; writeFields(draft.fields || {}); }
+  else { ed.innerHTML = ''; if (draft) store.del('cqc.draft'); }
   if (!$('#f-dom').value) $('#f-dom').value = settings.domain;
   if (!$('#f-auth').value) $('#f-auth').value = settings.author;
   syncPlaceholder(); renderRoles(); counters(); updateWC(); renderHistory();
-  // Pre-run the sample so the Report tab opens in a working state
-  report = window.CQ.analyze(Object.assign({}, readFields(), { html: ed.innerHTML, house: houseOpts(), sensitivity: settings.sensitivity }));
-  report.ms = 0; report.html = ed.innerHTML;
   go((location.hash || '#check').slice(1), false);
   window.addEventListener('hashchange', () => { const v = location.hash.slice(1); if (VIEWS.includes(v) && $('#view-' + v).hidden) go(v, false); });
   loadFeeds(false);
