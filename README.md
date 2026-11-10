@@ -143,7 +143,7 @@ Content QC follows Google's published guidance; it cannot see search volume, bac
 
 ## Author
 
-Ideated and developed by **Mansura Akter Susama**, technical writer and SEO specialist.
+Ideated and developed by **Mansura Akter Susama**, technical writer and SEO content strategist.
 
 Contact: [LinkedIn](https://www.linkedin.com/in/writersusama/)
 
