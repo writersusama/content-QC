@@ -1,0 +1,13 @@
+{
+  "name": "content-qc",
+  "version": "1.0.0",
+  "description": "Content QC: a free content quality checker that tests copy against Google's policies, ranking systems and patents, with a local AI-content detector",
+  "type": "module",
+  "private": true,
+  "author": "Mansura Akter Susama (https://www.linkedin.com/in/writersusama/)",
+  "license": "UNLICENSED",
+  "homepage": "https://content-qc.netlify.app",
+  "repository": { "type": "git", "url": "https://github.com/writersusama/content-QC" },
+  "scripts": { "start": "node server.js" },
+  "engines": { "node": ">=18" }
+}
